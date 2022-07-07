@@ -25,7 +25,7 @@ async def get_order(order_id: str) -> OrderSchema:
 
 
 @router.post("/orders", response_model=OrderSchema)
-async def create_order(order_id: str, order: OrderSchema):
+async def create_order(order: OrderSchema):
     return await crud.create_order(order)
 
 
