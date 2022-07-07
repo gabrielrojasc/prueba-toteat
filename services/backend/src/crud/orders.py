@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from tortoise.exceptions import DoesNotExist
 
 from src.database.models import Orders
-from src.schemas.users import OrderSchema
+from src.schemas.orders import OrderSchema
 
 
 async def get_orders():
