@@ -1,6 +1,6 @@
-from typing import List
+from fastapi_pagination import Page, Params
 
-from fastapi import APIRouter, HTTPException
+from fastapi import Depends, APIRouter, HTTPException
 from tortoise.contrib.fastapi import HTTPNotFoundError
 from tortoise.exceptions import DoesNotExist
 
@@ -11,9 +11,9 @@ from src.schemas.orders import OrderSchema
 router = APIRouter()
 
 
-@router.get("/orders", response_model=List[OrderSchema])
-async def get_orders():
-    return await crud.get_orders()
+@router.get("/orders", response_model=Page[OrderSchema])
+async def get_orders(params: Params = Depends()):
+    return await crud.get_orders(params)
 
 
 @router.get("/order/{order_id}", response_model=OrderSchema)

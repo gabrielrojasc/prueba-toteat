@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.database.register import register_tortoise
 from src.database.config import TORTOISE_ORM
+from fastapi_pagination import add_pagination
 from tortoise import Tortoise
 
 # enable schemas to read relationship between models
@@ -26,3 +27,6 @@ register_tortoise(app, config=TORTOISE_ORM, generate_schemas=False)
 @app.get("/")
 def home():
     return "Hello World"
+
+
+add_pagination(app)

@@ -1,12 +1,14 @@
 from fastapi import HTTPException
 from tortoise.exceptions import DoesNotExist
 
+from fastapi_pagination.ext.tortoise import paginate
+
 from src.database.models import Orders
 from src.schemas.orders import OrderSchema
 
 
-async def get_orders():
-    return await OrderSchema.from_queryset(Orders.all())
+async def get_orders(params):
+    return await paginate(Orders, params)
 
 
 async def get_order(order_id) -> OrderSchema:

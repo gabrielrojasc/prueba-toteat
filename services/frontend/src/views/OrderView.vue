@@ -66,15 +66,14 @@
     </div>
     <br />
   </div>
+  {{ currentPage }}
 </template>
+
 <script>
 import axios from "axios";
 
 export default {
   name: "OrderView",
-  props: {
-    currentPage: Number,
-  },
   data() {
     return {
       order: {},
@@ -93,8 +92,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.subtitle {
-  font-weight: bold;
-}
-</style>

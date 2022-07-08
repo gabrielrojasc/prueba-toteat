@@ -2,6 +2,7 @@ aerich==0.6.3
 asyncpg==0.25.0
 black==22.6.0
 fastapi==0.78.0
+fastapi-pagination==0.9.3
 flake8==4.0.1
 python-multipart==0.0.5
 python-rapidjson==1.8
