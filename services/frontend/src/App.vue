@@ -1,6 +1,17 @@
 <template>
-  <router-view></router-view>
+  <NavBar />
+  <router-view class="m-3"></router-view>
 </template>
+
+<script>
+import NavBar from "@/components/NavBar";
+export default {
+  name: "App",
+  components: {
+    NavBar,
+  },
+};
+</script>
 
 <style>
 #app {
