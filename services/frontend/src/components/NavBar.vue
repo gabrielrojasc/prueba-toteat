@@ -16,10 +16,19 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <router-link
-            :to="{ name: home }"
+            :to="{ name: 'Home' }"
             class="nav-link"
-            :class="{ active: routeName === 'home' ? true : false }"
-            >Home</router-link
+            :class="{ active: routeName === 'Home' ? true : false }"
+            >Dashboard</router-link
+          >
+          <router-link
+            :to="{ name: 'Orders' }"
+            class="nav-link"
+            :class="{
+              active:
+                routeName === 'Orders' || routeName === 'Order' ? true : false,
+            }"
+            >Orders</router-link
           >
         </div>
       </div>
@@ -29,7 +38,7 @@
 
 <script>
 export default {
-  name: "NavBar",
+  name: "Navbar",
   computed: {
     routeName() {
       return this.$route.name;

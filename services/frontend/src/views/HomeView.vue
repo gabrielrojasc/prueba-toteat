@@ -1,33 +1,14 @@
 <template>
-  <div>
-    <p>{{ msg }}</p>
-  </div>
+  <Dashboard />
 </template>
 
 <script>
-import axios from "axios";
+import Dashboard from "@/components/Dashboard.vue";
 
 export default {
   name: "HomeView",
-  data() {
-    return {
-      msg: "",
-    };
-  },
-  created() {
-    this.getMessage();
-  },
-  methods: {
-    getMessage() {
-      axios
-        .get("/")
-        .then((res) => {
-          this.msg = res.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
+  components: {
+    Dashboard,
   },
 };
 </script>
