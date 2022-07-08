@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from src.database.register import register_tortoise
@@ -12,9 +13,13 @@ from src.routes import orders
 
 app = FastAPI()
 
+FRONTEND_URL = os.environ["FRONTEND_URL"]
+
+origins = ["http://localhost:8080", FRONTEND_URL]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:8080"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
