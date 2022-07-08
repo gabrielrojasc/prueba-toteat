@@ -1,9 +1,15 @@
 # Prueba toteat
 
-Prueba "La picada de la eskina" de toteat
+Prueba "La pikada de la esquina" de toteat
 
-The current state of the application is incomple, intended to show some 
+The current state of the application is incomplete, intended to show some 
 graphs at the dashboard but didn't have much time or knowledge to do it.
+
+\*\* May take some time to load first time cause of heroku's dyno idling on free tier
+
+Live frontend: [https://prueba-toteat-front.herokuapp.com](https://prueba-toteat-front.herokuapp.com)
+
+Live api docs: [https://prueba-toteat-api.herokuapp.com/docs](https://prueba-toteat-api.herokuapp.com/docs)
 
 ## Technologies
 
@@ -20,15 +26,33 @@ The project is conteinarized for ease of use in 3 main containers:
 
 ## Run development environment
 
-To run for development you can run the following command
+To run for development you can run the following commands
 
+To run the containers:
 ```bash
 docker-compose up -d --build
 ```
+To init-db:
+```bash
+docker-compose exec backend aerich upgrade
+```
+```bash
+docker-compose exec backend aerich migrate
+```
+To populate db:
+```bash
+docker-compose exec db bash
+```
+Inside the bash terminal of the machine we execute the followeing
+
+```bash
+psql postgres://prueba_toteat:prueba_toteat@db:5432/prueba_toteat_dev < data/populate_db
+```
+And now we can exit the bash terminal with <CTL>+D
 
 ## Run production environment
 
-The production environment is still not configured.
+Check readme on `main` branch for details.
 
 ## The models and api
 
