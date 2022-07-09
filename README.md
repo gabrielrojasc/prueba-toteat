@@ -1,9 +1,15 @@
 # Prueba toteat
 
-Prueba "La picada de la eskina" de toteat
+Prueba "La pikada de la esquina" de toteat
 
-The current state of the application is incomple, intended to show some 
+The current state of the application is incomplete, intended to show some 
 graphs at the dashboard but didn't have much time or knowledge to do it.
+
+\*\* May take some time to load first time cause of heroku's dyno idling on free tier
+
+Live frontend: [https://prueba-toteat-front.herokuapp.com](https://prueba-toteat-front.herokuapp.com)
+
+Live api docs: [https://prueba-toteat-api.herokuapp.com/docs](https://prueba-toteat-api.herokuapp.com/docs)
 
 ## Technologies
 
@@ -18,17 +24,34 @@ The project is conteinarized for ease of use in 3 main containers:
  - backend: to host the backend api
  - db: to host the postgre database
 
-## Run development environment
+## Deploy to heroku
 
-To run for development you can run the following command
+To deploy to heroku, create 2 apps one for the frontend, and one for the backend.
+
+The frontend app and the backend app are containerized and can be pushed easily 
+to heroku.
+
+First you have to download the heroku cli and log in using `heroku login`, then 
+login into container with `heroku container:login` and push each app to the it's 
+respective heroku app. Finally, release each app.
 
 ```bash
-docker-compose up -d --build
+cd services/backend
+heroku container:push web -a <heroku-backend-app-name>
+heroku container:release web -a <heroku-backend-app-name>
 ```
 
-## Run production environment
+```bash
+cd services/frontend
+heroku container:push web -a <heroku-frontend-app-name>
+heroku container:release web -a <heroku-frontend-app-name>
+```
+The frontend app `Dockerfile` exports `VUE_APP_API_URL` as an env variable, 
+you should change this to be the url of the backend api app.
 
-The production environment is still not configured.
+The backend app `Dockerfile` exports `FRONTEND_URL` as an env variable, you 
+should change this to be the url of the frontend app.
+
 
 ## The models and api
 
