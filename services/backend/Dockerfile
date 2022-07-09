@@ -5,7 +5,9 @@ WORKDIR /app
 
 ENV PATH="${PATH}:/root/.local/bin"
 ENV PYTHONPATH=.
-ENV FRONTEND_URL=https://prueba-toteat-front.herokuapp.com
+
+ARG FRONT_END_URL
+ENV FRONTEND_URL=$FRONT_END_URL
 
 COPY requirements.txt .
 RUN pip install --upgrade pip
