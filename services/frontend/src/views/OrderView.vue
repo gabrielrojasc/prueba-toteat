@@ -11,18 +11,22 @@
       </div>
     </div>
     <div class="row mx-5 text-start">
-      <p><span class="fw-bold">Date Opened</span>: {{ order.date_opened }}</p>
-      <p><span class="fw-bold">Date Closed</span>: {{ order.date_closed }}</p>
+      <p>
+        <span class="fw-bold">Date Opened</span>:
+        {{ formatDate(order.date_opened) }}
+      </p>
+      <p>
+        <span class="fw-bold">Date Closed</span>:
+        {{ formatDate(order.date_closed) }}
+      </p>
       <p><span class="fw-bold">Zone</span>: {{ order.zone }}</p>
       <p><span class="fw-bold">Table</span>: {{ order.table }}</p>
       <p><span class="fw-bold">Diners</span>: {{ order.diners }}</p>
       <p><span class="fw-bold">Waiter</span>: {{ order.waiter }}</p>
       <p><span class="fw-bold">Cashier</span>: {{ order.cashier }}</p>
-      <p><span class="fw-bold">Total</span>: {{ order.total }}</p>
-      <p><span class="fw-bold">Products</span>:</p>
       <div class="row">
-        <div class="col-1"></div>
-        <div class="col-6">
+        <div class="col">
+          <p><span class="fw-bold">Products</span>:</p>
           <table class="table">
             <thead>
               <tr>
@@ -32,21 +36,25 @@
                 <th scope="col">Quantity</th>
               </tr>
             </thead>
-            <tbody v-for="product in order.products">
-              <tr>
+            <tbody>
+              <tr v-for="product in order.products">
                 <td>{{ product.name }}</td>
                 <td>{{ product.category }}</td>
-                <td>{{ product.price }}</td>
+                <td>{{ formatMoney(product.price) }}</td>
                 <td>{{ product.quantity }}</td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2"></td>
+                <td>Sum:</td>
+                <td v-if="order">{{ formatMoney(productSum) }}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
-      </div>
-      <p><span class="fw-bold">Payments</span>:</p>
-      <div class="row">
-        <div class="col-1"></div>
-        <div class="col-6">
+        <div class="col">
+          <p><span class="fw-bold">Payments</span>:</p>
           <table class="table">
             <thead>
               <tr>
@@ -54,19 +62,24 @@
                 <th scope="col">Amount</th>
               </tr>
             </thead>
-            <tbody v-for="payment in order.payments">
-              <tr>
+            <tbody>
+              <tr v-for="payment in order.payments">
                 <td>{{ payment.type }}</td>
-                <td>{{ payment.amount }}</td>
+                <td>{{ formatMoney(payment.amount) }}</td>
               </tr>
             </tbody>
+            <tfoot>
+              <tr>
+                <td>Total:</td>
+                <td>{{ formatMoney(order.total) }}</td>
+              </tr>
+            </tfoot>
           </table>
         </div>
       </div>
     </div>
     <br />
   </div>
-  {{ currentPage }}
 </template>
 
 <script>
@@ -77,9 +90,21 @@ export default {
   data() {
     return {
       order: {},
+      productSum: 0,
     };
   },
   methods: {
+    formatMoney(amount) {
+      const formatter = new Intl.NumberFormat("es-CL", {
+        style: "currency",
+        currency: "clp",
+      });
+      return formatter.format(amount);
+    },
+    formatDate(date) {
+      const dateObj = new Date(date);
+      return dateObj.toDateString();
+    },
     async fetchOrder(order_id) {
       const res = await axios.get(`/order/${order_id}`);
       const data = res.data;
@@ -89,6 +114,10 @@ export default {
   async created() {
     const order_id = this.$route.params.id;
     this.order = await this.fetchOrder(order_id);
+    this.productSum = this.order.products.reduce(
+      (prev, curr) => prev + curr.price * curr.quantity,
+      0
+    );
   },
 };
 </script>

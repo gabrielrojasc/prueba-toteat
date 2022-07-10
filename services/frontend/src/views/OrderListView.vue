@@ -11,18 +11,18 @@
               <th scope="col">Id</th>
               <th scope="col">Table</th>
               <th scope="col">Diners</th>
-              <th scope="col">Number of products</th>
+              <th scope="col">Balance Difference</th>
               <th scope="col">Total</th>
               <th scope="col">Date</th>
               <th scope="col"></th>
             </tr>
           </thead>
-          <tbody v-if="loaded" v-for="(order, index) in orders">
-            <tr>
+          <tbody v-if="loaded">
+            <tr v-for="(order, index) in orders">
               <th scope="row">{{ index + firstId }}</th>
               <td>{{ order.table }}</td>
               <td>{{ order.diners }}</td>
-              <td>{{ order.products.length }}</td>
+              <td>{{ formatMoney(order.total - sumProducts(order)) }}</td>
               <td class="text-align-left">{{ formatMoney(order.total) }}</td>
               <td>{{ formatDate(order.date_opened) }}</td>
               <td>
@@ -98,6 +98,12 @@ export default {
       this.currentPage--;
       const data = await this.fetchData(this.currentPage);
       this.setData(data);
+    },
+    sumProducts(order) {
+      return order.products.reduce(
+        (prev, curr) => prev + curr.price * curr.quantity,
+        0
+      );
     },
     setData(data) {
       this.orders = data.items;

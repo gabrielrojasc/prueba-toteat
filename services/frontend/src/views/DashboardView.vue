@@ -1,8 +1,8 @@
 <template>
   <h1 class="m-4">Dashboard</h1>
-  <div class="container mx-5 my-3">
-    <div class="row">
-      <div class="col-6">
+  <div class="container-fluid px-5">
+    <div class="row justify-content-center">
+      <div class="col">
         <h3>Balance</h3>
         <table class="table">
           <thead>
@@ -25,7 +25,7 @@
           </tbody>
         </table>
       </div>
-      <div class="col-6">
+      <div class="col">
         <h3>Daily Orders</h3>
         <DailyOrdersChart v-if="loaded" :dailyOrders="dailyOrders" />
       </div>
