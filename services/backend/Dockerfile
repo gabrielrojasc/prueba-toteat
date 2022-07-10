@@ -5,6 +5,7 @@ WORKDIR /app
 
 ENV PATH="${PATH}:/root/.local/bin"
 ENV PYTHONPATH=.
+ENV FRONTEND_URL=https://prueba-toteat-front.herokuapp.com
 
 COPY requirements.txt .
 RUN pip install --upgrade pip
@@ -14,4 +15,6 @@ RUN pip install -r requirements.txt
 COPY migrations .
 COPY pyproject.toml .
 
-COPY src/ .
+COPY . /app
+
+CMD ["sh", "-c", "uvicorn src.main:app --host 0.0.0.0 --port ${PORT}"]

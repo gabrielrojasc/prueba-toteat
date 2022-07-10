@@ -7,6 +7,12 @@ import router from "./router";
 import store from "./store";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:5000/";
+axios.defaults.baseURL = process.env.VUE_APP_API_URL;
+
+if (location.protocol !== "https:") {
+  location.replace(
+    `https:${location.href.substring(location.protocol.length)}`
+  );
+}
 
 createApp(App).use(store).use(router).mount("#app");

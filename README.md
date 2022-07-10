@@ -21,35 +21,34 @@ The project is conteinarized for ease of use in 3 main containers:
  - backend: to host the backend api
  - db: to host the postgre database
 
-## Run development environment
+## Deploy to heroku
 
-To run for development you can run the following commands
+To deploy to heroku, create 2 apps one for the frontend, and one for the backend.
 
-To run the containers:
-```bash
-docker-compose up -d --build
-```
-To init-db:
-```bash
-docker-compose exec backend aerich upgrade
-```
-```bash
-docker-compose exec backend aerich migrate
-```
-To populate db:
-```bash
-docker-compose exec db bash
-```
-Inside the bash terminal of the machine we execute the followeing
+The frontend app and the backend app are containerized and can be pushed easily 
+to heroku.
+
+First you have to download the heroku cli and log in using `heroku login`, then 
+login into container with `heroku container:login` and push each app to the it's 
+respective heroku app. Finally, release each app.
 
 ```bash
-psql postgres://prueba_toteat:prueba_toteat@db:5432/prueba_toteat_dev < data/populate_db
+cd services/backend
+heroku container:push web -a <heroku-backend-app-name>
+heroku container:release web -a <heroku-backend-app-name>
 ```
-And now we can exit the bash terminal with <CTL>+D
 
-## Run production environment
+```bash
+cd services/frontend
+heroku container:push web -a <heroku-frontend-app-name>
+heroku container:release web -a <heroku-frontend-app-name>
+```
+The frontend app `Dockerfile` exports `VUE_APP_API_URL` as an env variable, 
+you should change this to be the url of the backend api app.
 
-Check readme on `main` branch for details.
+The backend app `Dockerfile` exports `FRONTEND_URL` as an env variable, you 
+should change this to be the url of the frontend app.
+
 
 ## The models and api
 
