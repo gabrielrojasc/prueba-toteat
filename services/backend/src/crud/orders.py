@@ -53,15 +53,12 @@ async def get_daily_orders():
 
 
 async def get_monthly_payments():
-    orders = (
-        await Orders.all().order_by("-date_closed").values("payments", "date_closed")
-    )
+    orders = await Orders.all().values("total", "date_closed")
     monthly_payments = {}
     for order in orders:
-        payments = order["payments"]
-        amounts = [payment["amount"] for payment in payments]
+        amount = order["total"]
         month = order["date_closed"].strftime("%Y-%m")
-        monthly_payments[month] = monthly_payments.get(month, 0) + sum(amounts)
+        monthly_payments[month] = monthly_payments.get(month, 0) + amount
     monthly_payments = [
         {"date": date, "amount": amount} for date, amount in monthly_payments.items()
     ]
@@ -69,12 +66,13 @@ async def get_monthly_payments():
 
 
 async def get_monthly_total():
-    orders = await Orders.all().order_by("-date_closed").values("total", "date_closed")
+    orders = await Orders.all().values("products", "date_closed")
     monthly_total = {}
     for order in orders:
-        total = order["total"]
+        products = order["products"]
+        amounts = [product["price"] * product["quantity"] for product in products]
         month = order["date_closed"].strftime("%Y-%m")
-        monthly_total[month] = monthly_total.get(month, 0) + total
+        monthly_total[month] = monthly_total.get(month, 0) + sum(amounts)
     monthly_total = [
         {"date": date, "amount": amount} for date, amount in monthly_total.items()
     ]
