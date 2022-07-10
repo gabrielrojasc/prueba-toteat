@@ -1,16 +1,16 @@
 <template>
-  <div class="container-fluid py-3 px-5">
-    <div class="row m-3">
-      <div class="col-9">
+  <div class="container-fluid">
+    <div class="row m-3 px-5">
+      <div class="col me-auto">
         <h3 class="text-start">Order details</h3>
       </div>
-      <div class="col-3">
+      <div class="col-auto">
         <router-link :to="{ name: 'Orders' }" class="btn btn-dark"
           >Go Back</router-link
         >
       </div>
     </div>
-    <div class="row mx-5 text-start">
+    <div class="row mx-5 px-5 text-start">
       <p>
         <span class="fw-bold">Date Opened</span>:
         {{ formatDate(order.date_opened) }}
@@ -27,54 +27,58 @@
       <div class="row">
         <div class="col">
           <p><span class="fw-bold">Products</span>:</p>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Category</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="product in order.products">
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
-                <td>{{ formatMoney(product.price) }}</td>
-                <td>{{ product.quantity }}</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="2"></td>
-                <td>Sum:</td>
-                <td v-if="order">{{ formatMoney(productSum) }}</td>
-              </tr>
-            </tfoot>
-          </table>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="product in order.products">
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.category }}</td>
+                  <td>{{ formatMoney(product.price) }}</td>
+                  <td>{{ product.quantity }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2"></td>
+                  <td>Sum:</td>
+                  <td v-if="order">{{ formatMoney(productSum) }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
         <div class="col">
           <p><span class="fw-bold">Payments</span>:</p>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="payment in order.payments">
-                <td>{{ payment.type }}</td>
-                <td>{{ formatMoney(payment.amount) }}</td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td>Total:</td>
-                <td>{{ formatMoney(order.total) }}</td>
-              </tr>
-            </tfoot>
-          </table>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Type</th>
+                  <th scope="col">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="payment in order.payments">
+                  <td>{{ payment.type }}</td>
+                  <td>{{ formatMoney(payment.amount) }}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td>Total:</td>
+                  <td>{{ formatMoney(order.total) }}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
         </div>
       </div>
     </div>
