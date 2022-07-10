@@ -2,9 +2,6 @@
 
 Prueba "La pikada de la esquina" de toteat
 
-The current state of the application is incomplete, intended to show some 
-graphs at the dashboard but didn't have much time or knowledge to do it.
-
 \*\* May take some time to load first time cause of heroku's dyno idling on free tier
 
 Live frontend: [https://prueba-toteat-front.herokuapp.com](https://prueba-toteat-front.herokuapp.com)

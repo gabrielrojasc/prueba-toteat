@@ -16,9 +16,9 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <router-link
-            :to="{ name: 'Home' }"
+            :to="{ name: 'Dashboard' }"
             class="nav-link"
-            :class="{ active: routeName === 'Home' ? true : false }"
+            :class="{ active: routeName === 'Dashboard' ? true : false }"
             >Dashboard</router-link
           >
           <router-link

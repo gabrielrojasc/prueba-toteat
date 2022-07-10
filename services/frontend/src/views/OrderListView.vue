@@ -17,14 +17,14 @@
               <th scope="col"></th>
             </tr>
           </thead>
-          <tbody v-for="(order, index) in orders">
+          <tbody v-if="loaded" v-for="(order, index) in orders">
             <tr>
               <th scope="row">{{ index + firstId }}</th>
               <td>{{ order.table }}</td>
               <td>{{ order.diners }}</td>
               <td>{{ order.products.length }}</td>
-              <td class="text-align-left">${{ order.total }}</td>
-              <td>{{ order.date_opened }}</td>
+              <td class="text-align-left">{{ formatMoney(order.total) }}</td>
+              <td>{{ formatDate(order.date_opened) }}</td>
               <td>
                 <router-link
                   :to="{ name: 'Order', params: { id: order.id } }"
@@ -71,6 +71,17 @@ export default {
     };
   },
   methods: {
+    formatMoney(amount) {
+      const formatter = new Intl.NumberFormat("es-CL", {
+        style: "currency",
+        currency: "clp",
+      });
+      return formatter.format(amount);
+    },
+    formatDate(date) {
+      const dateObj = new Date(date);
+      return dateObj.toDateString();
+    },
     async fetchData(page) {
       const res = await axios.get(`/orders?page=${page}`);
       const data = res.data;
