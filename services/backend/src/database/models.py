@@ -13,3 +13,6 @@ class Orders(models.Model):
     diners = fields.SmallIntField()
     products = fields.JSONField()
     payments = fields.JSONField()
+
+    class Meta:
+        ordering = ["-date_closed"]

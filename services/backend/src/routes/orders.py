@@ -1,3 +1,4 @@
+from typing import List
 from fastapi_pagination import Page, Params
 
 from fastapi import Depends, APIRouter, HTTPException
@@ -14,6 +15,21 @@ router = APIRouter()
 @router.get("/orders", response_model=Page[OrderSchema])
 async def get_orders(params: Params = Depends()):
     return await crud.get_orders(params)
+
+
+@router.get("/orders/daily", response_model=List[dict])
+async def get_daily_orders():
+    return await crud.get_daily_orders()
+
+
+@router.get("/payments/monthly", response_model=List[dict])
+async def get_monthly_payments():
+    return await crud.get_monthly_payments()
+
+
+@router.get("/total/monthly", response_model=List[dict])
+async def get_monthly_total():
+    return await crud.get_monthly_total()
 
 
 @router.get("/order/{order_id}", response_model=OrderSchema)
