@@ -4,9 +4,11 @@ Prueba "La pikada de la esquina" de toteat
 
 \*\* May take some time to load first time cause of heroku's dyno idling on free tier
 
-Live frontend: [https://prueba-toteat-front.herokuapp.com](https://prueba-toteat-front.herokuapp.com)
+**Not live anymore**
 
-Live api docs: [https://prueba-toteat-api.herokuapp.com/docs](https://prueba-toteat-api.herokuapp.com/docs)
+~~Live frontend: [https://prueba-toteat-front.herokuapp.com](https://prueba-toteat-front.herokuapp.com)~~
+
+~~Live api docs: [https://prueba-toteat-api.herokuapp.com/docs](https://prueba-toteat-api.herokuapp.com/docs)~~
 
 ## Technologies
 
